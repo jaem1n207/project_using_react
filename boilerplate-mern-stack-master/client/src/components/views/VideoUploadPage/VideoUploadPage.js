@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Button, Form, message, Input, Icon } from "antd";
+import Dropzone from "react-dropzone";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -14,6 +15,17 @@ function VideoUploadPage() {
       <Form onSubmit>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           {/* Drop zone */}
+          <Dropzone 
+          onDrop 
+          multiple
+          maxSize>
+          {({getRootProps, getInputProps}) => ( 
+          <div style={{ width: "300px", height: "240px", border: "1px solid lightgray", display: "flex",
+          alignItems: "center", justifyContent: "center"}} {...getRootProps()}>
+            <input {...getInputProps()} />
+            <Icon type="plus" style={{ fontSize: "3rem"}}/>
+            </div> )} 
+          </Dropzone>
 
           {/* Tunmnail */}
           <div>
@@ -30,12 +42,16 @@ function VideoUploadPage() {
         <br />
         <br />
 
-        <selection onChange>
+        <select onChange>
           <option key value></option>
-        </selection>
-        <selection onChange>
+        </select>
+        <br />
+        <br />
+        <select onChange>
           <option key value></option>
-        </selection>
+        </select>
+        <br />
+        <br />
         <Button type="primary" size="large" onClick>
           Submit
         </Button>
