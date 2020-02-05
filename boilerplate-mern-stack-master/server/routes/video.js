@@ -44,31 +44,26 @@ router.post("/uploadfiles", (req, res) => {
 });
 
 router.post("/thumbnail", (req, res) => {
-  // 썸네일 생성하고 비디오 러닝타임도 가져오기
-
-  let filePath = "";
+  let thumbsFilePath = "";
   let fileDuration = "";
 
-  // 비디오 정보 가져오기
-  ffmpeg.ffprobe(req.body.url, function(err, metadata) {
-    console.dir(metadata); // 객체 출력
+  ffmpeg.ffprobe(req.body.filePath, function(err, metadata) {
+    console.dir(metadata);
     console.log(metadata.format.duration);
+
     fileDuration = metadata.format.duration;
   });
 
-  // 썸네일 생성
-  ffmpeg(req.body.url)
+  ffmpeg(req.body.filePath)
     .on("filenames", function(filenames) {
-      console.log("Will generate" + filenames.join(", "));
-      console.log(filenames);
-
-      filePath = "uploads/thumbnails/" + filenames[0];
+      console.log("Will generate " + filenames.join(", "));
+      thumbsFilePath = "uploads/thumbnails/" + filenames[0];
     })
     .on("end", function() {
       console.log("Screenshots taken");
       return res.json({
         success: true,
-        url: filePath,
+        thumbsFilePath: thumbsFilePath,
         fileDuration: fileDuration
       });
     })
@@ -77,10 +72,11 @@ router.post("/thumbnail", (req, res) => {
       return res.json({ success: false, err });
     })
     .screenshots({
+      // Will take screens at 20%, 40%, 60% and 80% of the video
       count: 3,
       folder: "uploads/thumbnails",
-      size: "320*240",
-      // '%b': input basename
+      size: "320x240",
+      // %b input basename ( filename w/o extension )
       filename: "thumbnail-%b.png"
     });
 });
