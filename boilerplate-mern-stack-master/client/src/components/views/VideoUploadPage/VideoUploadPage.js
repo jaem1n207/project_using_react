@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, Button, Form, message, Input, Icon } from "antd";
 import Dropzone from "react-dropzone";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -19,14 +20,15 @@ const Catogory = [
   { value: 0, label: "Sports" }
 ];
 
-function UploadVideoPage() {
+function UploadVideoPage(props) {
+  const user = useSelector(state => state.user);
   const [title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const [privacy, setPrivacy] = useState(0);
   const [Categories, setCategories] = useState("Film & Animation");
   const [FilePath, setFilePath] = useState("");
   const [Duration, setDuration] = useState("");
-  const [ThumbnailPath, setThumbnailPath] = useState("");
+  const [Thumbnail, setThumbnail] = useState("");
 
   const handleChangeTitle = event => {
     setTitle(event.currentTarget.value);
@@ -46,8 +48,6 @@ function UploadVideoPage() {
     setCategories(event.currentTarget.value);
   };
 
-  const onSubmit = () => {};
-
   const onDrop = files => {
     let formData = new FormData();
     const config = {
@@ -62,24 +62,46 @@ function UploadVideoPage() {
           filePath: response.data.filePath,
           fileName: response.data.fileName
         };
-
         setFilePath(response.data.filePath);
+
+        //gerenate thumbnail with this filepath !
 
         axios.post("/api/video/thumbnail", variable).then(response => {
           if (response.data.success) {
-            console.log(response.data);
             setDuration(response.data.fileDuration);
-            setThumbnailPath(response.data.thumbsFilePath);
+            setThumbnail(response.data.thumbsFilePath);
           } else {
-            alert("썸네일 생성에 실패 했습니다.");
+            alert("Failed to make the thumbnails");
           }
         });
-
-        // setFilePath(response.data.filePath);
-
-        //gerenate thumbnail with this filepath !
       } else {
         alert("failed to save the video in server");
+      }
+    });
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    const variable = {
+      writer: user.userData._id,
+      title: title,
+      description: Description,
+      privacy: privacy,
+      filePath: FilePath,
+      category: Categories,
+      duration: Duration,
+      thumbnail: Thumbnail
+    };
+    axios.post("/api/video/uploadVideo", variable).then(response => {
+      if (response.data.success) {
+        message.success("성공적으로 업로드를 했습니다.");
+
+        setTimeout(() => {
+          props.history.push("/");
+        }, 3000);
+      } else {
+        alert("비디오 업로드에 실패 했습니다.");
       }
     });
   };
@@ -112,12 +134,9 @@ function UploadVideoPage() {
           </Dropzone>
 
           {/* {thumbnail !== "" &&} */}
-          {ThumbnailPath && (
+          {Thumbnail && (
             <div>
-              <img
-                src={`http://localhost:5000/${ThumbnailPath}`}
-                alt="thumbnail"
-              />
+              <img src={`http://localhost:5000/${Thumbnail}`} alt="thumbnail" />
             </div>
           )}
         </div>

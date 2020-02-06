@@ -6,6 +6,8 @@ var ffmpeg = require("fluent-ffmpeg");
 
 const { User } = require("../models/User");
 
+const { Video } = require("../models/Video");
+
 const { auth } = require("../middleware/auth");
 
 var storage = multer.diskStorage({
@@ -40,6 +42,16 @@ router.post("/uploadfiles", (req, res) => {
       filePath: res.req.file.path,
       fileName: res.req.file.filename
     });
+  });
+});
+
+router.post("/uploadVideo", (req, res) => {
+  // 비디오 정보들을 저장한다.
+  const video = new Video(req.body);
+
+  video.save((err, doc) => {
+    if (err) return res.json({ success: false, err });
+    res.status(200).json({ success: true });
   });
 });
 
