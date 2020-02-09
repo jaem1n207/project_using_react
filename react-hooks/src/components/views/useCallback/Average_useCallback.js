@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Input, Button } from "antd";
 
 const getAverage = numbers => {
@@ -8,28 +8,31 @@ const getAverage = numbers => {
   return sum / numbers.length;
 };
 
-const Average = () => {
+const Average_useCallback = () => {
   var pattern = /\s/g; // 공백 포함 체크 정규식
 
   const [list, setList] = useState([]);
   const [number, setNumber] = useState("");
 
-  const onChange = e => {
+  const onChange = useCallback(e => {
     setNumber(e.target.value);
-  };
+  }, []);
 
-  const onInsert = e => {
-    if (number.match(pattern) || isNaN(number) || number === "") {
-      alert("내용에 공백이 포함되어 있거나 숫자가 아닙니다!");
-      setNumber("");
-    } else if (!isNaN(number)) {
-      const nextList = list.concat(parseInt(number));
-      setList(nextList);
-      setNumber("");
-    }
-  };
+  const onInsert = useCallback(
+    e => {
+      if (number.match(pattern) || isNaN(number) || number === "") {
+        alert("내용에 공백이 포함되어 있거나 숫자가 아닙니다!");
+        setNumber("");
+      } else if (!isNaN(number)) {
+        const nextList = list.concat(parseInt(number));
+        setList(nextList);
+        setNumber("");
+      }
+    },
+    [number, list]
+  );
 
-  const handleKeyDown = e => {
+  const onKeyPress = e => {
     if (e.key === "Enter") {
       onInsert();
     }
@@ -39,12 +42,7 @@ const Average = () => {
 
   return (
     <div>
-      <Input
-        placeholder="숫자를 입력해주세요..."
-        value={number}
-        onChange={onChange}
-        onKeyDown={handleKeyDown}
-      />
+      <Input value={number} onChange={onChange} onKeyDown={onKeyPress}></Input>
       <Button onClick={onInsert}>등록</Button>
       <ul>
         {list.map((value, index) => {
@@ -52,10 +50,10 @@ const Average = () => {
         })}
       </ul>
       <div>
-        <b>평균 값:</b> {avg}
+        <b>평균값:</b> {avg}
       </div>
     </div>
   );
 };
 
-export default Average;
+export default Average_useCallback;
