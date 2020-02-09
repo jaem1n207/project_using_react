@@ -19,7 +19,7 @@ const Average = () => {
   };
 
   const onInsert = e => {
-    if (number.match(pattern) || isNaN(number)) {
+    if (number.match(pattern) || isNaN(number) || number === "") {
       alert("내용에 공백이 포함되어 있거나 숫자가 아닙니다!");
       setNumber("");
     } else if (!isNaN(number)) {
