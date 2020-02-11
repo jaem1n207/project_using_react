@@ -8,6 +8,7 @@ import Average from "./components/views/useMemo/Average";
 import Average_useCallback from "./components/views/useCallback/Average_useCallback";
 import Average_useRef from "./components/views/useRefHook/Average_useRef";
 import LocalVariable from "./components/views/LocalVariable/LocalVariable";
+import UsePromiseSample from "./components/views/usePromise/UsePromiseSample";
 import { Button } from "antd";
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
         {visible ? "숨기기" : "보이기"}
       </Button>
       <hr />
-      {visible && <LocalVariable />}
+      {visible && <UsePromiseSample />}
     </div>
   );
 }
