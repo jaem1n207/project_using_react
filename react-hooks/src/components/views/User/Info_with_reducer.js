@@ -1,23 +1,14 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Input, notification } from "antd";
 import "../../../Style/antdesign.css";
+import useInputs from "../UseInputs.js/UseInputs";
 
-function reducer(state, action) {
-  return {
-    ...state,
-    [action.name]: action.value
-  };
-}
-
-function UserInfo() {
-  const [state, dispatch] = useReducer(reducer, {
+const UserInfo = () => {
+  const [state, onChange] = useInputs({
     name: "",
     nickname: ""
   });
   const { name, nickname } = state;
-  const onChange = e => {
-    dispatch(e.target);
-  };
 
   /* 언마운트 되기 전이나, 업데잍트 되기 직전에 다음 작업 수행 */
   useEffect(() => {
@@ -94,6 +85,6 @@ function UserInfo() {
       </div>
     </div>
   );
-}
+};
 
 export default UserInfo;
