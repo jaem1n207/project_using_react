@@ -10,7 +10,7 @@ function counter(state = initialState, action) {
     case types.INCREMENT:
       return {
         ...state,
-        numer: state.number + 1
+        number: state.number + 1
       };
     case types.DECREMENT:
       return {
