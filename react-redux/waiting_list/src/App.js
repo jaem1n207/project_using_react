@@ -1,15 +1,15 @@
 import React from "react";
 
 import "./App.css";
-import Counter from "./components/Counter";
-import Palette from "./components/Palette";
+import CounterContainer from "./containers/CounterContainer";
+import PaletteContainer from "./containers/PaletteContainer";
 import WaitingList from "./components/WaitingList";
 
 function App() {
   return (
     <div className="App">
-      <Palette selected="red" />
-      <Counter value={0} color="red" />
+      <PaletteContainer />
+      <CounterContainer />
       <WaitingList />
     </div>
   );
