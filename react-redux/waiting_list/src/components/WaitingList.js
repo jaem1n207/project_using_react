@@ -22,7 +22,7 @@ const WaitingList = ({ waitingList, onEnter, onLeave }) => {
         <button>등록</button>
       </form>
       <ul>
-        <WaitingItem text="뜨뜨" entered />
+        <WaitingItem text="코난" entered />
         <WaitingItem text="도라에몽" />
         <WaitingItem text="짱구" />
       </ul>
