@@ -3,14 +3,14 @@ import React from "react";
 import "./App.css";
 import CounterContainer from "./containers/CounterContainer";
 import PaletteContainer from "./containers/PaletteContainer";
-import WaitingList from "./components/WaitingList";
+import WaitingListContainer from "./containers/WaitingListContainer";
 
 function App() {
   return (
     <div className="App">
       <PaletteContainer />
       <CounterContainer />
-      <WaitingList />
+      <WaitingListContainer />
     </div>
   );
 }
