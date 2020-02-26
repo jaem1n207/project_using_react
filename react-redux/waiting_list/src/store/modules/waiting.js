@@ -45,19 +45,17 @@ export default handleActions(
         id: action.payload.id,
         name: action.payload.text,
         entered: false
-      }),
-      [ENTER]: (state, action) => ({
-        ...state,
-        list: state.list.map(item =>
-          item.id === action.payload
-            ? { ...item, entered: !item.entered }
-            : item
-        )
-      }),
-      [LEAVE]: (state, action) => ({
-        ...state,
-        list: state.list.filter(item => item.id !== action.payload)
       })
+    }),
+    [ENTER]: (state, action) => ({
+      ...state,
+      list: state.list.map(item =>
+        item.id === action.payload ? { ...item, entered: !item.entered } : item
+      )
+    }),
+    [LEAVE]: (state, action) => ({
+      ...state,
+      list: state.list.filter(item => item.id !== action.payload)
     })
   },
   initialState
