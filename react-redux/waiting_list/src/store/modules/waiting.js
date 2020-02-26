@@ -1,4 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
+import produce from "immer";
 
 const CHANGE_INPUT = "waiting/CHANGE_INPUT";
 const CREATE = "waiting/CREATE";
@@ -35,28 +36,30 @@ const initialState = {
 
 export default handleActions(
   {
-    [CHANGE_INPUT]: (state, action) => ({
-      ...state,
-      input: action.payload
-    }),
-    [CREATE]: (state, action) => ({
-      ...state,
-      list: state.list.concat({
-        id: action.payload.id,
-        name: action.payload.text,
-        entered: false
+    [CHANGE_INPUT]: (state, action) =>
+      produce(state, draft => {
+        draft.input = action.payload;
+      }),
+    [CREATE]: (state, action) =>
+      produce(state, draft => {
+        draft.list.push({
+          id: action.payload.id,
+          name: action.payload.text,
+          entered: false
+        });
+      }),
+    [ENTER]: (state, action) =>
+      produce(state, draft => {
+        const item = draft.list.find(item => item.id === action.payload);
+        item.entered = !item.entered;
+      }),
+    [LEAVE]: (state, action) =>
+      produce(state, draft => {
+        draft.list.splice(
+          draft.list.findIndex(item => item.id === action.payload),
+          1
+        );
       })
-    }),
-    [ENTER]: (state, action) => ({
-      ...state,
-      list: state.list.map(item =>
-        item.id === action.payload ? { ...item, entered: !item.entered } : item
-      )
-    }),
-    [LEAVE]: (state, action) => ({
-      ...state,
-      list: state.list.filter(item => item.id !== action.payload)
-    })
   },
   initialState
 );
