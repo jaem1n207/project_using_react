@@ -3,6 +3,9 @@ import Header from "./components/Header";
 import Container from "./components/Container";
 import { connect } from "react-redux";
 
+import ViewSelectorContainer from "./container/ViewSelectorContainer";
+import InputContainer from "./container/InputContainer";
+
 class App extends Component {
   render() {
     const { view } = this.props;
@@ -11,14 +14,13 @@ class App extends Component {
       <div>
         <Header />
         <ViewSelectorContainer />
-        {/* ViewSelectorContainer */}
 
         {/* view 값에 따라 다른 컨테이너를 보여준다 */}
         <Container visible={view === "favorite"}>
           {/* FavoriteListContainer */}
         </Container>
         <Container visible={view === "list"}>
-          {/* InputContainer */}
+          <InputContainer />
           {/* ContactListContainer */}
         </Container>
 
