@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import ViewSelectorContainer from "./container/ViewSelectorContainer";
 import InputContainer from "./container/InputContainer";
+import FavoriteListContainer from "./container/FavoriteListContainer";
 
 class App extends Component {
   render() {
@@ -17,7 +18,7 @@ class App extends Component {
 
         {/* view 값에 따라 다른 컨테이너를 보여준다 */}
         <Container visible={view === "favorite"}>
-          {/* FavoriteListContainer */}
+          {FavoriteListContainer}
         </Container>
         <Container visible={view === "list"}>
           <InputContainer />
