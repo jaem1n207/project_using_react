@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import ViewSelectorContainer from "./container/ViewSelectorContainer";
 import InputContainer from "./container/InputContainer";
 import FavoriteListContainer from "./container/FavoriteListContainer";
+import FloatingButtonContainer from "./container/FloatingButtonContainer";
 
 class App extends Component {
   render() {
@@ -26,7 +27,7 @@ class App extends Component {
         </Container>
 
         {/* ContactModalContainer */}
-        {/* FloatingButtonContainer */}
+        {FloatingButtonContainer}
       </div>
     );
   }
@@ -35,28 +36,3 @@ class App extends Component {
 export default connect(state => ({
   view: state.base.get("view")
 }))(App);
-
-/* 
-function generateRandomColor() {
-    const colors = [
-        'gray',
-        'red',
-        'pink',
-        'grape',
-        'violet',
-        'indigo',
-        'blue',
-        'cyan',
-        'teal',
-        'green',
-        'lime',
-        'yellow',
-        'orange'
-    ];
-
-    // 0 부터 12까지 랜덤 숫자
-    const random = Math.floor(Math.random() * 13);
-
-    return oc[colors[random]][6];
-}
-*/
