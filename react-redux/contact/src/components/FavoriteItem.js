@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import PersonIcon from "react-icons/lib/md/person";
+// import PersonIcon from "react-icons/lib/md/person";
 import ImmutablePropTypes from "react-immutable-proptypes";
 
 const Wrapper = styled.div`
@@ -52,9 +52,7 @@ const FavoriteItem = ({ contact }) => {
   return (
     <Wrapper>
       <Box color={color}>
-        <ThumbnailContainer>
-          <PersonIcon />
-        </ThumbnailContainer>
+        <ThumbnailContainer>{/* <PersonIcon /> */}</ThumbnailContainer>
         <Info>
           <Name>{name}</Name>
           <Phone>{phone}</Phone>

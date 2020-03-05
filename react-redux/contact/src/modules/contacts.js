@@ -49,31 +49,34 @@ const initialState = List([
   })
 ]);
 
-export default handleActions({
-  [CREATE]: (state, action) => {
-    return state.push(Map(action.payload));
-  },
-  [MODIFY]: (state, action) => {
-    const index = state.findIndex(
-      contact => contact.get("id") === action.payload.id
-    );
+export default handleActions(
+  {
+    [CREATE]: (state, action) => {
+      return state.push(Map(action.payload));
+    },
+    [MODIFY]: (state, action) => {
+      const index = state.findIndex(
+        contact => contact.get("id") === action.payload.id
+      );
 
-    return state.mergeIn([index], action.payload.contact);
-  },
-  [REMOVE]: (state, action) => {
-    const index = state.findIndex(
-      contact => contact.get("id") === action.payload.id
-    );
+      return state.mergeIn([index], action.payload.contact);
+    },
+    [REMOVE]: (state, action) => {
+      const index = state.findIndex(
+        contact => contact.get("id") === action.payload.id
+      );
 
-    return state.delete(index);
-  },
-  [TOGGLE_FAVORITE]: (state, action) => {
-    const index = state.findIndex(
-      contact => contact.get("id") === action.payload
-    );
+      return state.delete(index);
+    },
+    [TOGGLE_FAVORITE]: (state, action) => {
+      const index = state.findIndex(
+        contact => contact.get("id") === action.payload
+      );
 
-    return state.update(index, contact =>
-      contact.set("favorite", !contact.get("favorite"))
-    );
-  }
-});
+      return state.update(index, contact =>
+        contact.set("favorite", !contact.get("favorite"))
+      );
+    }
+  },
+  initialState
+);
