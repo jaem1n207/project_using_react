@@ -131,7 +131,9 @@ class ContactModal extends Component {
     return (
       <Modal visible={visible} onHide={onHide}>
         <ThumbnailWrapper>
-          {/* <RemoveButton visible={mode==='modify'} onClick={onRemove}><RemoveIcon/></RemoveButton> */}
+          <RemoveButton visible={mode === "modify"} onClick={onRemove}>
+            {/* <RemoveIcon/> */}
+          </RemoveButton>
           <Thumbnail size="8rem" color={color} />
         </ThumbnailWrapper>
         <Form>

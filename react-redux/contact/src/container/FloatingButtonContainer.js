@@ -5,7 +5,6 @@ import * as modalActions from "../modules/modal";
 import * as baseActions from "../modules/base";
 import { bindActionCreators } from "redux";
 import oc from "open-color";
-import { render } from "@testing-library/react";
 
 function generateRandomColor() {
   const colors = [
