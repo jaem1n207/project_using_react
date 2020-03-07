@@ -20,8 +20,14 @@ class ContactListContainer extends Component {
     });
   };
 
+  // 즐겨찾기 활성화 / 비활성화
+  handleToggleFavorite = id => {
+    const { ContactsActions } = this.props;
+    ContactsActions.toggleFavorite(id);
+  };
+
   redner() {
-    const { contacts, keywword } = this.props;
+    const { contacts, keyword } = this.props;
     const { handleOpenModify, handleToggleFavorite } = this;
 
     return (

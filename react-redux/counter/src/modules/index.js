@@ -29,7 +29,7 @@ export default handleActions(
 
       return state.set(
         "counters",
-        counters.puth(
+        counters.push(
           Map({
             color: action.payload,
             number: 0

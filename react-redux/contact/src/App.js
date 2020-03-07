@@ -8,9 +8,11 @@ import InputContainer from "./container/InputContainer";
 import FavoriteListContainer from "./container/FavoriteListContainer";
 import FloatingButtonContainer from "./container/FloatingButtonContainer";
 import ContactModalContainer from "./container/contactModalConntainer";
+import ContactListContainer from "./container/contactListContainer";
 
 class App extends Component {
   render() {
+    // 레퍼런스 준비
     const { view } = this.props;
 
     return (
@@ -20,15 +22,15 @@ class App extends Component {
 
         {/* view 값에 따라 다른 컨테이너를 보여준다 */}
         <Container visible={view === "favorite"}>
-          {FavoriteListContainer}
+          <FavoriteListContainer />
         </Container>
         <Container visible={view === "list"}>
           <InputContainer />
-          {/* ContactListContainer */}
+          <ContactListContainer />
         </Container>
 
-        {ContactModalContainer}
-        {FloatingButtonContainer}
+        <ContactModalContainer />
+        <FloatingButtonContainer />
       </div>
     );
   }
