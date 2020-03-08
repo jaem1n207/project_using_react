@@ -14,7 +14,11 @@ class WaitingListContainer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { WaitingActions, input } = this.props;
-    WaitingActions.create(input);
+    var blank_pattern = /\W|\s/g;
+
+    if (input.search(blank_pattern) > -1) {
+      WaitingActions.create(input);
+    }
     WaitingActions.changeInput("");
   };
 

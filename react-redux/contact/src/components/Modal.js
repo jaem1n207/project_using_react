@@ -111,4 +111,3 @@ class Modal extends Component {
 
 // onClickoutside 라이브러리 적용
 export default onClickOutside(Modal);
-``;
