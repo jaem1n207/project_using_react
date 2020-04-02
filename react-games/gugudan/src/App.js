@@ -1,16 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 function App() {
   const [value, setValue] = useState("");
   const [first, setFirst] = useState(Math.ceil(Math.random() * 9));
   const [second, setSecond] = useState(Math.ceil(Math.random() * 9));
-  const [result, setResult] = useState(0);
+  const [result, setResult] = useState("");
   const inputEl = useRef(null);
 
   const onSubmitForm = e => {
     e.preventDefault();
     if (parseInt(value) === first * second) {
-      setResult("정답");
+      setResult("정답: " + value);
       setFirst(Math.ceil(Math.random() * 9));
       setSecond(Math.ceil(Math.random() * 9));
       setValue("");
