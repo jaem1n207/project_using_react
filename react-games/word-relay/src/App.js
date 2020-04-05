@@ -6,13 +6,19 @@ function App() {
   const [word, setWord] = useState("짱구");
   const inputEl = useRef(null);
 
-  const onSubmitForm = e => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
     if (word[word.length - 1] === value[0]) {
-      setResult("정답!");
-      setWord(value);
-      setValue("");
-      inputEl.current.focus();
+      if (word === value) {
+        setResult("같은 단어를 연속으로 입력할 수 없습니다.");
+        setValue("");
+        inputEl.current.focus();
+      } else {
+        setResult("정답!");
+        setWord(value);
+        setValue("");
+        inputEl.current.focus();
+      }
     } else {
       setResult("땡!");
       setValue("");
@@ -20,7 +26,7 @@ function App() {
     }
   };
 
-  const onChangeValue = e => {
+  const onChangeValue = (e) => {
     setValue(e.target.value);
   };
 
@@ -28,7 +34,16 @@ function App() {
     <>
       <div>{word}</div>
       <form onSubmit={onSubmitForm}>
-        <input ref={inputEl} value={value} onChange={onChangeValue} />
+        <label id="label" htmlFor="wordInput">
+          글자를 입력하세요.
+        </label>
+        <input
+          id="wordInput"
+          ref={inputEl}
+          value={value}
+          onChange={onChangeValue}
+          autoComplete="off"
+        />
         <button>클릭</button>
       </form>
       <div>{result}</div>
