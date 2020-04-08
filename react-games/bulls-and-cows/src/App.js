@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, memo } from "react";
 import TryInfo from "./TryInfo";
 
 const getNumbers = () => {
@@ -13,7 +13,7 @@ const getNumbers = () => {
   return array;
 };
 
-const App = () => {
+const App = memo(() => {
   const [result, setResult] = useState("");
   const [value, setValue] = useState("");
   const [answer, setAnswer] = useState(getNumbers());
@@ -22,7 +22,9 @@ const App = () => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
+
     if (value === answer.join("")) {
+      setResult("홈런!");
       setTries((prevTries) => [
         ...prevTries,
         {
@@ -30,7 +32,7 @@ const App = () => {
           result: "홈런!",
         },
       ]);
-      setResult("홈런!");
+
       alert("10번 이내에 성공하여 게임을 다시 시작합니다.");
       setValue("");
       setAnswer(getNumbers());
@@ -55,8 +57,8 @@ const App = () => {
             ball += 1;
           }
         }
-        setTries((t) => [
-          ...t,
+        setTries((prevTries) => [
+          ...prevTries,
           {
             try: value,
             result: `${strike} 스트라이크, ${ball} 볼입니다.`,
@@ -84,6 +86,6 @@ const App = () => {
       ))}
     </>
   );
-};
+});
 
 export default App;
