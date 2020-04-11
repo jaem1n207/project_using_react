@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 
 function App() {
+  const [result, setResult] = useState("");
+  const [imgCoord, setImgCoord] = useState(rspCoords.바위);
+  const [score, setScore] = useState(0);
+  const interval = useRef();
+
   return (
     <>
       <div
