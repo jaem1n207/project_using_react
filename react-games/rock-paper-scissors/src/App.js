@@ -1,4 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
+import handImg from "./assets/handImg.jpg";
+
+const rspCoords = {
+  바위: "0",
+  가위: "-142px",
+  보: "-284px",
+};
+
+const scores = {
+  가위: 1,
+  바위: 0,
+  보: -1,
+};
+
+const computerChoice = (imgCoord) => {
+  return Object.entries(rspCoords).find((v) => v[1] === imgCoord)[0];
+};
 
 function App() {
   const [result, setResult] = useState("");
@@ -6,12 +23,53 @@ function App() {
   const [score, setScore] = useState(0);
   const interval = useRef();
 
+  useEffect(() => {
+    console.log("다시 실행");
+    interval.current = setInterval(changeHand, 100);
+    return () => {
+      console.log("종료");
+      clearInterval(interval.current);
+    };
+  }, [imgCoord]);
+
+  const changeHand = () => {
+    if (imgCoord === rspCoords.바위) {
+      setImgCoord(rspCoords.가위);
+    } else if (imgCoord === rspCoords.가위) {
+      setImgCoord(rspCoords.보);
+    } else if (imgCoord === rspCoords.보) {
+      setImgCoord(rspCoords.바위);
+    }
+  };
+
+  const onClickBtn = (choice) => () => {
+    clearInterval(interval.current);
+    const myScore = scores[choice];
+    const cpuScore = scores[computerChoice(imgCoord)];
+    const diff = myScore - cpuScore;
+    if (diff === 0) {
+      setResult("비겼습니다!");
+    } else if ([-1, 2].includes(diff)) {
+      setResult("이겼습니다!");
+      setScore((prevScore) => prevScore + 1);
+    } else {
+      setResult("졌습니다!");
+      setScore((prevScore) => prevScore - 1);
+    }
+    setTimeout(() => {
+      interval.current = setInterval(changeHand, 100);
+    }, 1000);
+  };
+
   return (
     <>
       <div
         id="computer"
         style={{
-          background: `url(http://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0`,
+          background: `url(${handImg}) ${imgCoord} 0`,
+          width: "142px",
+          height: "200px",
+          position: "relative",
         }}
       />
       <div>
