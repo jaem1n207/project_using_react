@@ -1,4 +1,5 @@
 import React from "react";
+import Ball from "./Ball";
 
 function getWinNumbers() {
   const candidate = Array(45)
@@ -15,12 +16,15 @@ function getWinNumbers() {
   return [...winNumbers, bonusNumber];
 }
 
-function App() {
+const Lotto = () => {
   return (
     <>
-      <div></div>
+      <div>당첨 숫자</div>
+      <div id="결과창">{}</div>
+      <div>보너스!</div>
+      {}
     </>
   );
-}
+};
 
-export default App;
+export default Lotto;
