@@ -24,10 +24,8 @@ function App() {
   const interval = useRef();
 
   useEffect(() => {
-    console.log("다시 실행");
     interval.current = setInterval(changeHand, 100);
     return () => {
-      console.log("종료");
       clearInterval(interval.current);
     };
   }, [imgCoord]);
@@ -46,6 +44,8 @@ function App() {
     clearInterval(interval.current);
     const myScore = scores[choice];
     const cpuScore = scores[computerChoice(imgCoord)];
+    console.log(cpuScore);
+
     const diff = myScore - cpuScore;
     if (diff === 0) {
       setResult("비겼습니다!");
