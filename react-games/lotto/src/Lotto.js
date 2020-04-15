@@ -41,6 +41,18 @@ const Lotto = () => {
   const timeouts = useRef([]);
   const { addToast } = useToasts();
 
+  /* 
+    ☆☆☆☆☆☆ hooks에서 componentDidMount는 실행 안하고 componentDidUpdate만 실행 시키고 싶을 때!! ☆☆☆☆☆☆
+    const mounted = useRef(false);
+    useEffect(() => {
+      if (!mounted.current) {
+        mounted.current = true;
+      } else {
+        // ajax
+      }
+    }, [바뀌는 값]);
+  */
+
   useEffect(() => {
     console.log("useEffect");
 
