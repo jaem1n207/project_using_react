@@ -3,10 +3,12 @@ import ReactDOM from "react-dom";
 import Lotto from "./Lotto";
 import * as serviceWorker from "./serviceWorker";
 
+import { ToastProvider } from "react-toast-notifications";
+
 ReactDOM.render(
-  <React.StrictMode>
+  <ToastProvider autoDismissTimeout={2000}>
     <Lotto />
-  </React.StrictMode>,
+  </ToastProvider>,
   document.getElementById("root")
 );
 
