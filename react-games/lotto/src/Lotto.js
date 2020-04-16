@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import { useToasts, ToastProvider } from "react-toast-notifications";
+import { useToasts } from "react-toast-notifications";
 
 import Ball from "./Ball";
 
